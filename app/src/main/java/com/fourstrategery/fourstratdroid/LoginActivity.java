@@ -19,6 +19,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.fourstrategery.fourstratdroid.util.VolleyUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  * A login screen that offers login via email/password.
@@ -176,8 +189,12 @@ public class LoginActivity extends Activity {
 
         private final String mUserName;
         private final String mPassword;
+         private boolean responseReceived = false;
+         private boolean success = false;
 
-        UserLoginTask(String userName, String password) {
+
+
+         UserLoginTask(String userName, String password) {
             mUserName = userName;
             mPassword = password;
         }
@@ -186,24 +203,74 @@ public class LoginActivity extends Activity {
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
+//            try {
+//                // Simulate network access.
+//                Thread.sleep(2000);
+//            } catch (InterruptedException e) {
+//                return false;
+//            }
+//
+//            for (String credential : DUMMY_CREDENTIALS) {
+//                String[] pieces = credential.split(":");
+//                if (pieces[0].equalsIgnoreCase(mUserName)) {
+//                    // Account exists, return true if the password matches.
+//                    return pieces[1].equalsIgnoreCase(mPassword);
+//                }
+//            }
+//
+//            // TODO: register the new account here.
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equalsIgnoreCase(mUserName)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equalsIgnoreCase(mPassword);
+
+            RequestQueue rQueue = VolleyUtil.getRequestQueue();
+
+            Map<String,String> queryParams = new HashMap<String,String>();
+            queryParams.put("name",mUserName);
+            queryParams.put("password",mPassword);
+
+            JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.GET,
+                    "https://services-fourstrategery.rhcloud.com/cloud/service/mobile/auth.json?name=" + mUserName + "&password=" + mPassword,
+                   // new JSONObject(queryParams),
+                    null,
+                    createMyReqSuccessListener(),
+                    createMyReqErrorListener());
+
+            rQueue.add(myReq);
+
+            while (!responseReceived) {
+                try {
+                    Thread.sleep(20);
                 }
+                catch (InterruptedException ioe) {}
             }
 
-            // TODO: register the new account here.
-            return true;
+            return success;
         }
+         private Response.Listener<JSONObject> createMyReqSuccessListener() {
+             return new Response.Listener<JSONObject>() {
+                 @Override
+                 public void onResponse(JSONObject response) {
+
+                     try {
+                         success = response.getBoolean("authenticated");
+                     } catch (JSONException e) {
+                        System.err.println("Parse error " + e);
+                     }
+                     responseReceived = true;
+                 }
+             };
+         }
+
+
+         private Response.ErrorListener createMyReqErrorListener() {
+             return new Response.ErrorListener() {
+                 @Override
+                 public void onErrorResponse(VolleyError error) {
+                     System.out.println(error);
+                     responseReceived = true;
+                 }
+
+             };
+         }
 
         @Override
         protected void onPostExecute(final Boolean success) {
