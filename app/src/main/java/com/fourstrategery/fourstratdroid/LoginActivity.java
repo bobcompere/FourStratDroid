@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 
@@ -252,6 +253,14 @@ public class LoginActivity extends Activity {
 
                      try {
                          success = response.getBoolean("authenticated");
+                         if (success) {
+                             SaveSharedPreference.setUser(getApplicationContext(),response.getInt("player_id"));
+                             SaveSharedPreference.setAutheticationToken(getApplicationContext(), response.getString("token"));
+
+                             Intent login = new Intent(getBaseContext(),MainActivity.class);
+
+                             startActivity(login);
+                         }
                      } catch (JSONException e) {
                         System.err.println("Parse error " + e);
                      }

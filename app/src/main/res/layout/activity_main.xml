@@ -6,13 +6,77 @@
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="LETS GO"
-        android:id="@+id/letsGO"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal|top"
+        android:id="@+id/OuterContainer"
+        android:longClickable="true"
+        android:backgroundTint="@color/material_deep_teal_500">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="FourStrategery"
+            android:id="@+id/title"
+            android:layout_gravity="center_horizontal|top"
+            android:backgroundTint="@color/abc_primary_text_material_dark" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:divider="#ff3b2fff"
+            android:dividerPadding="@dimen/abc_control_padding_material"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Current Games"
+                    android:id="@+id/currentGamesSelector"
+                    android:clickable="true"
+                    android:onClick="setContentView" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Past Games"
+                    android:id="@+id/pastGamesSelector"
+                    android:clickable="true"
+                    android:onClick="setContentView" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Create new Game"
+                    android:id="@+id/createGame"
+                    android:clickable="true"
+                    android:onClick="setContentView" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/SubScreen">
+
+            </FrameLayout>
+        </LinearLayout>
+    </LinearLayout>
+
 </RelativeLayout>

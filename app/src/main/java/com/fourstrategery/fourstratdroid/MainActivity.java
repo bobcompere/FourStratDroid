@@ -1,19 +1,20 @@
 package com.fourstrategery.fourstratdroid;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends FragmentActivity implements GameListFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (SaveSharedPreference.getUser(getApplicationContext()).equals("")) {
+        if (SaveSharedPreference.getUser(getApplicationContext()) == -1) {
             Intent login = new Intent(getBaseContext(),LoginActivity.class);
 
             startActivity(login);
@@ -21,13 +22,23 @@ public class MainActivity extends ActionBarActivity {
 
         setContentView(R.layout.activity_main);
 
+        installGameList();
+
      }
 
+
+    private void installGameList() {
+        if (findViewById(R.id.SubScreen) != null) {
+            GameListFragment gameFrag = new GameListFragment();
+            gameFrag.setArguments(getIntent().getExtras());
+
+           getSupportFragmentManager().beginTransaction().add(R.id.SubScreen, gameFrag).commit();
+        }
+    }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -45,5 +56,10 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }
