@@ -12,15 +12,17 @@ import org.json.JSONObject;
 public class GameListTask extends FourStratAuthorizedTask {
 
     private GameListFragment owner;
+    private int status;
 
-    public GameListTask(Context ctx, GameListFragment own) {
+    public GameListTask(Context ctx, GameListFragment own, int status) {
         super(ctx);
         owner = own;
+        this.status = status;
     }
 
     @Override
     public String getAdditionalParams() {
-        return "status=0";
+        return "status=" + status;
     }
 
     @Override

@@ -35,39 +35,11 @@
             android:dividerPadding="@dimen/abc_control_padding_material"
             android:padding="10dp">
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Current Games"
-                    android:id="@+id/currentGamesSelector"
-                    android:clickable="true"
-                    android:onClick="setContentView" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Past Games"
-                    android:id="@+id/pastGamesSelector"
-                    android:clickable="true"
-                    android:onClick="setContentView" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Create new Game"
-                    android:id="@+id/createGame"
-                    android:clickable="true"
-                    android:onClick="setContentView" />
-            </LinearLayout>
+            <ListView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/commandList"
+                android:clickable="true" />
 
             <FrameLayout
                 android:layout_width="fill_parent"
@@ -77,6 +49,7 @@
 
             </FrameLayout>
         </LinearLayout>
+
     </LinearLayout>
 
 </RelativeLayout>

@@ -16,6 +16,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +28,9 @@ import org.json.JSONObject;
  * create an instance of this fragment.
  */
 public class GameListFragment extends Fragment {
+
+
+    private int status = 0;
 
     private OnFragmentInteractionListener mListener;
 
@@ -45,16 +50,14 @@ public class GameListFragment extends Fragment {
     }
 
     public GameListFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
-        GameListTask task = new GameListTask(getActivity().getApplicationContext(),this);
+        GameListTask task = new GameListTask(getActivity().getApplicationContext(),this,status);
         task.execute((Void) null);
 
     }
@@ -72,11 +75,13 @@ public class GameListFragment extends Fragment {
     public void onStart() {
         super.onStart();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),
-                android.R.layout.simple_expandable_list_item_1, android.R.id.text1, new String[] {"GAME1","GAME2"});
+                android.R.layout.simple_expandable_list_item_1, android.R.id.text1, new ArrayList<String>());
         // Assign adapter to ListView
         ListView listView = (ListView) getView().findViewById(R.id.gameList);
         listView.setAdapter(adapter);
+
         adapter.notifyDataSetChanged();
+        listView.invalidateViews();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -105,17 +110,20 @@ public class GameListFragment extends Fragment {
 
     public void listReceived(JSONObject result) {
         try {
+            ListView listView = (ListView) getView().findViewById(R.id.gameList);
+
             JSONArray games = result.getJSONArray("games");
             String[] sgames = new String[games.length()];
             for (int i1=0;i1<games.length();i1++) {
                 sgames[i1] = games.getJSONObject(i1).getString("description");
             }
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),
-                    android.R.layout.simple_expandable_list_item_1, android.R.id.text1, sgames);
 
+            ArrayAdapter<String> adapter = (ArrayAdapter<String>) listView.getAdapter();
+            adapter.clear();
+            adapter.addAll(sgames);
 
             // Assign adapter to ListView
-            ListView listView = (ListView) getView().findViewById(R.id.gameList);
+
             listView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
 
@@ -144,5 +152,14 @@ public class GameListFragment extends Fragment {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
 
 }
