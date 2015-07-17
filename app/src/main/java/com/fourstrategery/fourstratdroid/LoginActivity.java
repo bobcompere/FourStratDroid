@@ -145,6 +145,8 @@ public class LoginActivity extends Activity {
         try {
             boolean success = objReturned.getBoolean("authenticated");
             if (success) {
+                SaveSharedPreference.setUser(getApplicationContext(),objReturned.getInt("player_id"));
+                SaveSharedPreference.setAutheticationToken(getApplicationContext(), objReturned.getString("token"));
                 finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
