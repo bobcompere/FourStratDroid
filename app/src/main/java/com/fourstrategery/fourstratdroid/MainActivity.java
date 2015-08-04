@@ -35,8 +35,7 @@ public class MainActivity extends FragmentActivity implements GameListFragment.O
 
         String[] commands = {"Current","Completed","NEW"};
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
-                android.R.layout.simple_expandable_list_item_1, android.R.id.text1,commands);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.gamelist,R.id.list_content,commands);
 
 
         // Assign adapter to ListView

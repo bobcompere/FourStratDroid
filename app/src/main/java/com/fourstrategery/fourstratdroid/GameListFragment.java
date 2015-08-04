@@ -1,12 +1,15 @@
 package com.fourstrategery.fourstratdroid;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -27,7 +30,7 @@ import java.util.ArrayList;
  * Use the {@link GameListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class GameListFragment extends Fragment {
+public class GameListFragment extends Fragment implements AdapterView.OnItemClickListener {
 
 
     private int status = 0;
@@ -74,8 +77,8 @@ public class GameListFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),
-                android.R.layout.simple_expandable_list_item_1, android.R.id.text1, new ArrayList<String>());
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),R.layout.gamelist,R.id.list_content,
+                new ArrayList<String>());
         // Assign adapter to ListView
         ListView listView = (ListView) getView().findViewById(R.id.gameList);
         listView.setAdapter(adapter);
@@ -113,12 +116,12 @@ public class GameListFragment extends Fragment {
             ListView listView = (ListView) getView().findViewById(R.id.gameList);
 
             JSONArray games = result.getJSONArray("games");
-            String[] sgames = new String[games.length()];
+            GameListItem[] sgames = new GameListItem[games.length()];
             for (int i1=0;i1<games.length();i1++) {
-                sgames[i1] = games.getJSONObject(i1).getString("description");
+                sgames[i1] = new GameListItem(games.getJSONObject(i1).getString("description"),games.getJSONObject(i1).getInt("gameId"));
             }
 
-            ArrayAdapter<String> adapter = (ArrayAdapter<String>) listView.getAdapter();
+            ArrayAdapter<GameListItem> adapter = (ArrayAdapter<GameListItem>) listView.getAdapter();
             adapter.clear();
             adapter.addAll(sgames);
 
@@ -126,6 +129,7 @@ public class GameListFragment extends Fragment {
 
             listView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
+            listView.setOnItemClickListener(this);
 
         }
         catch (JSONException je) {
@@ -133,6 +137,19 @@ public class GameListFragment extends Fragment {
             //
         }
     }
+
+    public void onItemClick(AdapterView<?> l, View v, int position, long id) {
+        Log.i("GameListView", "You clicked Item: " + id + " at position:" + position);
+
+        Log.i("GameListView", l.getItemAtPosition(position).toString());
+
+        GameListItem gli = (GameListItem) l.getItemAtPosition(position);
+        Intent gameStatus = new Intent(getView().getContext(),GameStatusActivity.class);
+        gameStatus.putExtra("gameId", gli.id);
+
+        startActivity(gameStatus);
+    }
+
 
     public void listCanceled() {
 
@@ -162,4 +179,19 @@ public class GameListFragment extends Fragment {
     }
 
 
+}
+
+class GameListItem {
+    String name;
+    int id;
+
+    GameListItem(String name, int id) {
+        this.name = name;
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
