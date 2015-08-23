@@ -1,10 +1,6 @@
 <resources>
-    <string name="app_name">FourStratDroid</string>
-
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name">Four Strategery DROID</string>
     <string name="action_settings">Settings</string>
-
 <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_game_status">GameStatusActivity</string>
+    <string name="title_activity_game_status">Game Status</string>
 </resources>

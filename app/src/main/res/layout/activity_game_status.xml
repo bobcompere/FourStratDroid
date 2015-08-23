@@ -13,43 +13,62 @@
 
         <TextView android:text="GAME" android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/gameDescription" />
+            android:id="@+id/gameDescription"
+            android:background="@color/accent_material_dark"
+            android:textColor="@color/material_blue_grey_800"
+            android:textStyle="bold|italic" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Players"
-            android:id="@+id/players" />
+            android:id="@+id/players"
+            android:background="@color/background_material_dark"
+            android:textColor="@color/abc_primary_text_material_dark" />
 
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/playerList"></TableLayout>
+            android:id="@+id/playerList"
+            android:background="@color/material_blue_grey_800"></TableLayout>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="My Units"
-            android:id="@+id/my_units_label" />
+            android:id="@+id/my_units_label"
+            android:textColor="@color/abc_primary_text_material_dark"
+            android:background="@color/background_material_dark" />
 
-        <TableLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="vertical"
-            android:id="@+id/myUnits"></TableLayout>
+            android:layout_height="fill_parent"
+            android:id="@+id/scrollView2"
+            android:layout_weight="3"
+            android:background="@color/material_deep_teal_500">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical"
+                android:id="@+id/myUnits"></TableLayout>
+        </ScrollView>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Activity"
-            android:id="@+id/activity_label" />
+            android:id="@+id/activity_label"
+            android:background="@color/background_material_dark"
+            android:textColor="@color/abc_primary_text_material_dark" />
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:id="@+id/scrollView"
-            android:layout_weight="3">
+            android:layout_weight="3"
+            android:background="@color/ripple_material_dark">
 
             <TableLayout
                 android:layout_width="match_parent"

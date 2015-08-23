@@ -10,6 +10,36 @@ public class GameStatusModel {
     private GameModel game;
     private List<Player> players;
     private List<PlayerDetail> playerDetails;
+    private List<Unit> myUnits;
+    private List<Venue> venues;
+
+    public int getMyPlayerNumber() {
+        return myPlayerNumber;
+    }
+
+    public void setMyPlayerNumber(int myPlayerNumber) {
+        this.myPlayerNumber = myPlayerNumber;
+    }
+
+    private int myPlayerNumber;
+
+    public List<Venue> getVenues() {
+        return venues;
+    }
+
+    public void setVenues(List<Venue> venues) {
+        this.venues = venues;
+    }
+
+    public List<Unit> getMyUnits() {
+        return myUnits;
+    }
+
+    public void setMyUnits(List<Unit> myUnits) {
+        this.myUnits = myUnits;
+    }
+
+
 
     public List<GameActivity> getActivities() {
         return activities;

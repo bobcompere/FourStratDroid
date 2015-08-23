@@ -35,17 +35,31 @@
             android:dividerPadding="@dimen/abc_control_padding_material"
             android:padding="10dp">
 
-            <ListView
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/commandList"
-                android:clickable="true" />
+                android:layout_height="match_parent"
+                android:id="@+id/leftEdge">
+
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="Options"
+                    android:id="@+id/optionsTitle"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="#ff0d0d0d" />
+
+                <ListView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/commandList"
+                    android:clickable="true" />
+            </LinearLayout>
 
             <FrameLayout
                 android:layout_width="fill_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
-                android:id="@+id/SubScreen">
+                android:id="@+id/SubScreen"
+                android:layout_margin="4dp">
 
             </FrameLayout>
         </LinearLayout>

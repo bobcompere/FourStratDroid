@@ -7,6 +7,7 @@ public class GameInfoResponse {
 
     private boolean success;
     private String message;
+    private String moveMessage;
     private GameStatusModel gameStatusModel;
 
     public GameStatusModel getGameStatusModel() {
@@ -31,5 +32,13 @@ public class GameInfoResponse {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getMoveMessage() {
+        return moveMessage;
+    }
+
+    public void setMoveMessage(String moveMessage) {
+        this.moveMessage = moveMessage;
     }
 }
